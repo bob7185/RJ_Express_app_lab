@@ -8,7 +8,19 @@ const comments = require('../data/comments')
 module.exports = () => {
     router.route('/')
     .get((req, res)=>{
+        const  {api, userId} = req.query;
         res.send(comments);
+        //comment by userrID
+        if(req.query && userId)
+            {
+        
+               res.json(comments.filter(comment=>comment.userId === Number(userId)))
+            }
+            // comment by postId 
+        else if (req.query && postId)
+        {
+            res.json(comments.filter(comment=>comment.postId === Number(postId)))
+        }
     
     })
     .post((req, res, next)=>{
