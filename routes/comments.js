@@ -10,13 +10,13 @@ module.exports = () => {
     .get((req, res)=>{
         const  {api, userId} = req.query;
         res.send(comments);
-        //comment by userrID
+        //comment by userId   endpoint GET /comments?userId=<VALUE>
         if(req.query && userId)
             {
         
                res.json(comments.filter(comment=>comment.userId === Number(userId)))
             }
-            // comment by postId 
+            // comment by postId   GET /comments?postId=<VALUE>
         else if (req.query && postId)
         {
             res.json(comments.filter(comment=>comment.postId === Number(postId)))

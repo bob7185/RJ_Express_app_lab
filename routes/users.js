@@ -97,4 +97,18 @@ router.get('/:id/posts', (req, res)=>{
    }
 })
 
+router.get('/:id/comments', (req, res)=>{
+  const checkExists = comments.some(comment=> comment.userId === parseInt(req.params.id))
+  if(checkExists)
+  {
+   res.json(comments.filter(comment=>comment.userId === parseInt(req.params.id)))
+
+  }
+  else{
+   res.status(400).json({msg:`User ${req.params.id} hasn't posted yet`})
+   
+  }
+
+})
+
 module.exports = router;

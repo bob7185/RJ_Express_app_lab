@@ -1,7 +1,6 @@
 // store comments 
 const comments = [
 
-    
 ]
 
 

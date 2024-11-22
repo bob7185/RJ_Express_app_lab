@@ -2,7 +2,9 @@ const express = require("express");
 const router = express.Router();
 
 const posts = require("../data/posts");
+const comments = require("../data/comments");
 const error = require("../utilities/error");
+
 
 router
   .route("/")
@@ -61,7 +63,8 @@ router
 
     if (post) res.json({ post, links });
     else next();
-  })
+  })// GET /posts/:id/comments
+  
   .patch((req, res, next) => {
     const post = posts.find((p, i) => {
       if (p.id == req.params.id) {
@@ -85,5 +88,23 @@ router
     if (post) res.json(post);
     else next();
   });
+
+  router.get(':id/comments', (req, res)=>{
+    const comment = comments.find((c) => c.id == req.params.id)
+    const links = [
+      {
+        href: `/${req.params.id}`,
+        rel: "",
+        type: "PATCH",
+      },
+      {
+        href: `/${req.params.id}`,
+        rel: "",
+        type: "DELETE",
+      },
+    ];
+
+    if (comment) res.json({ comment, links });
+  })
 
 module.exports = router;
